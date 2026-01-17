@@ -427,7 +427,7 @@ function SSCCP_AD_getSidebarHTML_Part2_() {
 '    <div class="section-title">📋 Pipeline</div>' +
 '    <div class="pipeline" id="pipelineStages">' +
 '      <div class="stage" id="stage1">' +
-'        <div class="stage-icon">🔑</div>' +
+'        <div class="stage-icon">🔒</div>' +
 '        <div class="stage-info">' +
 '          <div class="stage-name-text">Gate Checks</div>' +
 '          <div class="stage-detail" id="stage1Detail">Waiting...</div>' +
@@ -813,9 +813,9 @@ SSCCP_AD_getSidebarHTML_Part4_();
 function SSCCP_AD_getSidebarHTML_Part4_() {
   return '' +
 '  <script>' +
-'    // ══════════════════════════════════════════════════════════' +
+'    // ═══════════════════════════════════════════════════════' +
 '    // STATE' +
-'    // ══════════════════════════════════════════════════════════' +
+'    // ═══════════════════════════════════════════════════════' +
 '    var state = {' +
 '      isRunning: false,' +
 '      trackers: [],' +
@@ -844,9 +844,9 @@ function SSCCP_AD_getSidebarHTML_Part4_() {
 '      "ALL_TRACKERS": ["SMS", "CALL", "P1", "P35"]' +
 '    };' +
 '    ' +
-'    // ══════════════════════════════════════════════════════════' +
+'    // ═══════════════════════════════════════════════════════' +
 '    // INITIALIZATION' +
-'    // ══════════════════════════════════════════════════════════' +
+'    // ═══════════════════════════════════════════════════════' +
 '    document.addEventListener("DOMContentLoaded", function() {' +
 '      loadInitialData();' +
 '    });' +
@@ -879,9 +879,9 @@ function SSCCP_AD_getSidebarHTML_Part4_() {
 '        .SSCCP_AD_getEmailQuota();' +
 '    }' +
 '    ' +
-'    // ══════════════════════════════════════════════════════════' +
+'    // ═══════════════════════════════════════════════════════' +
 '    // REPORT TYPE HANDLER' +
-'    // ══════════════════════════════════════════════════════════' +
+'    // ═══════════════════════════════════════════════════════' +
 '    function onReportTypeChange() {' +
 '      var select = document.getElementById("reportType");' +
 '      state.selectedReportType = select.value;' +
@@ -904,9 +904,9 @@ function SSCCP_AD_getSidebarHTML_Part4_() {
 '      log("Report type: " + state.selectedReportType, "info");' +
 '    }' +
 '    ' +
-'    // ══════════════════════════════════════════════════════════' +
+'    // ═══════════════════════════════════════════════════════' +
 '    // UI UPDATE FUNCTIONS' +
-'    // ══════════════════════════════════════════════════════════' +
+'    // ═══════════════════════════════════════════════════════' +
 '    function updateModeBadge(mode) {' +
 '      var badge = document.getElementById("modeBadge");' +
 '      if (mode.testMode) {' +
@@ -943,7 +943,7 @@ function SSCCP_AD_getSidebarHTML_Part4_() {
 '        html += "<span class=\\"tracker-leads\\">" + t.leads + " leads</span>";' +
 '        html += "</div>";' +
 '        html += "<div class=\\"tracker-actions\\">";' +
-'        html += "<button class=\\"tracker-btn\\" onclick=\\"jumpToTracker(\'" + t.key + "\')\\">📄 Open</button>";' +
+'        html += "<button class=\\"tracker-btn\\" onclick=\\"jumpToTracker(\'" + t.key + "\')\\">\xF0\x9F\x94\x84 Open</button>";' +
 '        html += "<button class=\\"tracker-btn\\" onclick=\\"editParams(\'" + t.key + "\')\\">⚙️ Edit</button>";' +
 '        html += "</div>";' +
 '        html += "</div>";' +
@@ -1011,9 +1011,9 @@ SSCCP_AD_getSidebarHTML_Part5_();
 function SSCCP_AD_getSidebarHTML_Part5_() {
   return '' +
 '    ' +
-'    // ══════════════════════════════════════════════════════════' +
+'    // ═══════════════════════════════════════════════════════' +
 '    // ACTION FUNCTIONS' +
-'    // ══════════════════════════════════════════════════════════' +
+'    // ═══════════════════════════════════════════════════════' +
 '    function refreshTrackers() {' +
 '      log("Refreshing all trackers...", "info");' +
 '      document.getElementById("btnRefresh").disabled = true;' +
@@ -1111,9 +1111,9 @@ function SSCCP_AD_getSidebarHTML_Part5_() {
 '      document.getElementById("btnCancel").disabled = false;' +
 '    }' +
 '    ' +
-'    // ══════════════════════════════════════════════════════════' +
+'    // ═══════════════════════════════════════════════════════' +
 '    // POLLING' +
-'    // ══════════════════════════════════════════════════════════' +
+'    // ═══════════════════════════════════════════════════════' +
 '    function startPolling() {' +
 '      state.pollInterval = setInterval(function() {' +
 '        google.script.run' +
@@ -1174,9 +1174,9 @@ function SSCCP_AD_getSidebarHTML_Part5_() {
 '      }' +
 '    }' +
 '    ' +
-'    // ══════════════════════════════════════════════════════════' +
+'    // ═══════════════════════════════════════════════════════' +
 '    // UTILITIES' +
-'    // ══════════════════════════════════════════════════════════' +
+'    // ═══════════════════════════════════════════════════════' +
 '    function log(msg, type) {' +
 '      var container = document.getElementById("logContainer");' +
 '      var entry = document.createElement("div");' +
@@ -1473,7 +1473,7 @@ function SSCCP_AD_saveParams(trackerKey, priority, count) {
   SpreadsheetApp.flush();
   
   // Show toast
-  ss.toast("Parameters saved! Run Refresh Trackers to update.", "✔ Saved", 3);
+  ss.toast("Parameters saved! Run Refresh Trackers to update.", "✓ Saved", 3);
 }
 
 /**
@@ -1694,7 +1694,7 @@ function SSCCP_AD_executeRun_(runId, isDryRun, reportType, sendManagerReports) {
       return;
     }
     
-    updateState({ stageDetail: "✔ Gate checks passed" + (routeToAdmin ? " (Admin mode)" : ""), progress: 10 });
+    updateState({ stageDetail: "✓ Gate checks passed" + (routeToAdmin ? " (Admin mode)" : ""), progress: 10 });
     
     // Stage 2: Refresh Trackers
     updateState({ currentStage: 2, stageName: "Refresh Trackers", stageDetail: "Updating tracker data...", progress: 15 });
@@ -1706,7 +1706,7 @@ function SSCCP_AD_executeRun_(runId, isDryRun, reportType, sendManagerReports) {
       return;
     }
     
-    updateState({ stageDetail: "✔ " + refreshResult.summary, progress: 25 });
+    updateState({ stageDetail: "✓ " + refreshResult.summary, progress: 25 });
     
     // Stage 3: Scan Sources - Build lead data from selected trackers
     updateState({ currentStage: 3, stageName: "Scan Sources", stageDetail: "Loading lead data...", progress: 30 });
@@ -1724,7 +1724,7 @@ function SSCCP_AD_executeRun_(runId, isDryRun, reportType, sendManagerReports) {
     }
     
     updateState({ 
-      stageDetail: "✔ Found " + totalLeads + " leads",
+      stageDetail: "✓ Found " + totalLeads + " leads",
       stageCount: totalLeads,
       progress: 40,
       log: "Found " + totalLeads + " leads across " + repCount + " reps",
@@ -1738,7 +1738,7 @@ function SSCCP_AD_executeRun_(runId, isDryRun, reportType, sendManagerReports) {
     var rcIndex = {};
     try {
       rcIndex = RC_buildLookupIndex_();
-      updateState({ stageDetail: "✔ RC index built (" + Object.keys(rcIndex).length + " phones)", progress: 55 });
+      updateState({ stageDetail: "✓ RC index built (" + Object.keys(rcIndex).length + " phones)", progress: 55 });
     } catch (e) {
       updateState({ stageDetail: "⚠️ RC enrichment skipped: " + e.message, progress: 55 });
     }
@@ -1769,7 +1769,7 @@ function SSCCP_AD_executeRun_(runId, isDryRun, reportType, sendManagerReports) {
       return;
     }
     
-    updateState({ stageDetail: "✔ Enrichment complete", progress: 60 });
+    updateState({ stageDetail: "✓ Enrichment complete", progress: 60 });
     
     // Stage 5: Send Alerts
     updateState({ 
@@ -1889,7 +1889,7 @@ function SSCCP_AD_executeRun_(runId, isDryRun, reportType, sendManagerReports) {
     updateState({
       complete: true,
       stageName: "Complete",
-      stageDetail: "✔ All done!",
+      stageDetail: "✓ All done!",
       progress: 100,
       emailsSent: emailsSent,
       summary: summaryText,
@@ -2038,4 +2038,38 @@ function SSCCP_AD_timeAgo_(date) {
   if (seconds < 3600) return Math.floor(seconds / 60) + "m ago";
   if (seconds < 86400) return Math.floor(seconds / 3600) + "h ago";
   return Math.floor(seconds / 86400) + "d ago";
+}
+
+function TEST_checkHTML() {
+  var html = SSCCP_AD_getSidebarHTML_();
+  var hasRefresh = html.indexOf("function refreshTrackers()") > -1;
+  Logger.log("HTML length: " + html.length);
+  Logger.log("Contains refreshTrackers: " + hasRefresh);
+  
+  // Also check for the other functions
+  var hasOnReportType = html.indexOf("function onReportTypeChange()") > -1;
+  var hasLog = html.indexOf("function log(") > -1;
+  Logger.log("Contains onReportTypeChange: " + hasOnReportType);
+  Logger.log("Contains log function: " + hasLog);
+}
+
+function TEST_outputHTML() {
+  var html = SSCCP_AD_getSidebarHTML_();
+  // Find the script section
+  var scriptStart = html.indexOf('<script>');
+  var scriptEnd = html.indexOf('</script>');
+  
+  if (scriptStart > -1 && scriptEnd > -1) {
+    var scriptContent = html.substring(scriptStart + 8, scriptEnd);
+    Logger.log("Script section length: " + scriptContent.length);
+    
+    // Check first 500 chars of script
+    Logger.log("Script START: " + scriptContent.substring(0, 500));
+    
+    // Check around refreshTrackers
+    var refreshIdx = scriptContent.indexOf("function refreshTrackers");
+    if (refreshIdx > -1) {
+      Logger.log("refreshTrackers context: " + scriptContent.substring(refreshIdx - 50, refreshIdx + 200));
+    }
+  }
 }
