@@ -122,7 +122,7 @@ function onOpen(e) {
     
     .addSeparator()
     
-    // Authorization
+    // Authorizationh
     .addItem("🔐 Authorize RingCentral", "RC_API_authorize")
     .addItem("📌 Test Connection", "RC_API_testConnection")
     .addItem("🚪 Logout / Reset", "RC_API_logout")
@@ -141,7 +141,9 @@ function onOpen(e) {
       .addItem("🔍 Debug SMS Matching", "RC_debugSMSMatching")
       .addItem("📱 View Contact History", "RC_viewSelectedContactHistory")
       .addItem("🔧 Test Phone Matching", "RC_testPhoneMatching")
-      .addItem("⏱️ Debug Duration Parsing", "RC_debugDurationParsing"))
+      .addItem("⏱️ Debug Duration Parsing", "RC_debugDurationParsing")
+      .addItem("🔢 Verify Outbound Counts", "RC_verifyOutboundCounts")
+      .addItem("🔢 Quick Count Check", "RC_quickOutboundCheck"))
     
     .addToUi();
 
