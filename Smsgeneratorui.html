@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      padding: 16px;
+      color: #fff;
+    }
+    
+    .container { max-width: 500px; margin: 0 auto; }
+    
+    .header {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 10px 40px rgba(37, 99, 235, 0.3);
+    }
+    
+    .header-brand { font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 700; letter-spacing: 1px; margin-bottom: 4px; }
+    .header-title { font-size: 24px; font-weight: 800; color: #fff; }
+    .header-sub { font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px; }
+    
+    .card {
+      background: #1e293b;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border: 1px solid #334155;
+    }
+    
+    .card-label { font-size: 11px; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+    
+    .lead-card { background: #0f172a; border-radius: 10px; padding: 14px; border: 1px solid #334155; }
+    .lead-name { font-size: 18px; font-weight: 700; color: #fff; }
+    .lead-job { font-size: 12px; color: #64748b; margin-top: 2px; }
+    .lead-badge { display: inline-block; background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+    
+    .lead-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+    .lead-stat-label { font-size: 10px; color: #64748b; }
+    .lead-stat-value { font-size: 14px; font-weight: 600; color: #fff; }
+    .lead-stat-value.money { color: #4ade80; }
+    
+    input, textarea, select {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 12px;
+      color: #fff;
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+    
+    input:focus, textarea:focus, select:focus { outline: none; border-color: #3b82f6; }
+    textarea { resize: vertical; min-height: 120px; line-height: 1.5; }
+    
+    .template-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    
+    .template-btn {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 10px;
+      color: #cbd5e1;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: left;
+    }
+    
+    .template-btn:hover { border-color: #64748b; }
+    .template-btn.active { background: #2563eb; border-color: #3b82f6; color: #fff; }
+    .template-icon { font-size: 16px; margin-right: 6px; }
+    
+    .char-count { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+    .char-num { font-size: 12px; color: #64748b; }
+    .segment-badge { font-size: 11px; padding: 4px 8px; border-radius: 6px; font-weight: 600; }
+    .segment-badge.green { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+    .segment-badge.yellow { background: rgba(250, 204, 21, 0.2); color: #facc15; }
+    .segment-badge.red { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+    
+    .phone-preview { background: #0a0a0a; border-radius: 24px; padding: 16px; max-width: 280px; margin: 0 auto; border: 3px solid #1e293b; }
+    .preview-inner { background: #111; border-radius: 16px; padding: 12px; }
+    .preview-to { text-align: center; font-size: 11px; color: #64748b; margin-bottom: 10px; }
+    .preview-bubble { background: #2563eb; border-radius: 16px 16px 4px 16px; padding: 12px; color: #fff; font-size: 13px; line-height: 1.4; word-wrap: break-word; }
+    .preview-time { text-align: right; font-size: 10px; color: #475569; margin-top: 4px; }
+    
+    .btn-row { display: flex; gap: 10px; margin-top: 16px; }
+    
+    .btn {
+      flex: 1;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    
+    .btn-primary { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: #fff; }
+    .btn-primary:hover { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+    .btn-success { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); color: #fff; }
+    .btn-success:hover { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); }
+    .btn-copied { background: #16a34a !important; }
+    
+    .var-ref { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .var-tag { background: #0f172a; color: #60a5fa; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-family: monospace; }
+    
+    .loading { text-align: center; padding: 40px; color: #94a3b8; }
+    .spinner { border: 3px solid #334155; border-top: 3px solid #3b82f6; border-radius: 50%; width: 32px; height: 32px; animation: spin 1s linear infinite; margin: 0 auto 16px; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    
+    .lead-option { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 10px; margin-top: 8px; cursor: pointer; transition: all 0.2s; }
+    .lead-option:hover { border-color: #64748b; }
+    .lead-option.selected { border-color: #3b82f6; background: rgba(37, 99, 235, 0.1); }
+    
+    .footer { text-align: center; padding: 16px; color: #475569; font-size: 11px; }
+    .error { color: #f87171; text-align: center; padding: 20px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-brand">🚢 SAFE SHIP</div>
+      <div class="header-title">SMS Generator</div>
+      <div class="header-sub">Personalized messages in seconds</div>
+    </div>
+    
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <div>Loading lead data...</div>
+    </div>
+    
+    <div id="error-msg" class="error" style="display: none;"></div>
+    
+    <div id="main-content" style="display: none;">
+      
+      <div class="card">
+        <div class="card-label">📋 Selected Lead</div>
+        <div class="lead-card">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+              <div class="lead-name" id="lead-name">Loading...</div>
+              <div class="lead-job" id="lead-job">Job #</div>
+            </div>
+            <span class="lead-badge" id="lead-source">Source</span>
+          </div>
+          <div class="lead-grid">
+            <div>
+              <div class="lead-stat-label">Route</div>
+              <div class="lead-stat-value" id="lead-route">-- → --</div>
+            </div>
+            <div>
+              <div class="lead-stat-label">Move Date</div>
+              <div class="lead-stat-value" id="lead-date">--</div>
+            </div>
+            <div>
+              <div class="lead-stat-label">Est. Value</div>
+              <div class="lead-stat-value money" id="lead-value">$--</div>
+            </div>
+            <div>
+              <div class="lead-stat-label">Size</div>
+              <div class="lead-stat-value" id="lead-size">-- cu ft</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 10px; text-align: center;">
+          <a href="#" id="toggle-leads" style="color: #60a5fa; font-size: 12px; text-decoration: none;">Change Lead ▼</a>
+        </div>
+        <div id="lead-selector" style="display: none;"></div>
+      </div>
+      
+      <div class="card">
+        <div class="card-label">👤 Your First Name</div>
+        <input type="text" id="rep-name" placeholder="Enter your first name">
+      </div>
+      
+      <div class="card">
+        <div class="card-label">📝 Select Template</div>
+        <div class="template-grid" id="template-grid"></div>
+      </div>
+      
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <div class="card-label" style="margin-bottom: 0;">💬 Your Message</div>
+          <div class="char-count">
+            <span class="char-num"><span id="char-count">0</span> chars</span>
+            <span class="segment-badge green" id="segment-badge">1 segment</span>
+          </div>
+        </div>
+        <textarea id="message" placeholder="Your personalized message..."></textarea>
+      </div>
+      
+      <div class="card">
+        <div class="card-label">📱 Preview</div>
+        <div class="phone-preview">
+          <div class="preview-inner">
+            <div class="preview-to">To: <span id="preview-to">Customer</span></div>
+            <div class="preview-bubble" id="preview-bubble">Your message preview...</div>
+            <div class="preview-time" id="preview-time">Now</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="btn-row">
+        <button class="btn btn-primary" id="copy-btn">📋 Copy Message</button>
+        <a class="btn btn-success" id="sms-link" href="#">📱 Open SMS</a>
+      </div>
+      
+      <div class="card" style="background: rgba(30, 41, 59, 0.5);">
+        <div class="card-label">📖 Available Variables</div>
+        <div class="var-ref">
+          <span class="var-tag">{firstName}</span>
+          <span class="var-tag">{lastName}</span>
+          <span class="var-tag">{fromState}</span>
+          <span class="var-tag">{toState}</span>
+          <span class="var-tag">{moveDateFormatted}</span>
+          <span class="var-tag">{cubicFeet}</span>
+          <span class="var-tag">{estTotal}</span>
+          <span class="var-tag">{repFirstName}</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">🚢 Safe Ship Contact Checker Pro • SMS Generator v1.0</div>
+  </div>
+  
+  <script>
+    var currentLead = null;
+    var allLeads = [];
+    var templates = {};
+    var selectedTemplate = 'initial';
+    var repFirstName = '';
+    
+    // Get parameters from URL or template
+    var leadIdParam = '<?= leadId ?>' || '';
+    var repParam = '<?= repUsername ?>' || '';
+    
+    // Try to get from URL if template params are empty
+    if (!leadIdParam || !repParam) {
+      try {
+        var urlParams = new URLSearchParams(window.location.search);
+        leadIdParam = leadIdParam || urlParams.get('leadId') || '';
+        repParam = repParam || urlParams.get('rep') || '';
+      } catch(e) {}
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      // Attach event listeners
+      document.getElementById('rep-name').addEventListener('input', updateMessage);
+      document.getElementById('message').addEventListener('input', function() {
+        updateCharCount();
+        updatePreview();
+        updateSMSLink();
+      });
+      document.getElementById('copy-btn').addEventListener('click', copyMessage);
+      document.getElementById('toggle-leads').addEventListener('click', function(e) {
+        e.preventDefault();
+        toggleLeadSelector();
+      });
+      
+      loadData();
+    });
+    
+    function loadData() {
+      // Load templates
+      google.script.run
+        .withSuccessHandler(function(t) {
+          templates = t || {};
+          renderTemplates();
+          updateMessage();
+        })
+        .withFailureHandler(function(e) {
+          console.error('Failed to load templates:', e);
+        })
+        .getSMSTemplates();
+      
+      // Load rep name
+      if (repParam) {
+        google.script.run
+          .withSuccessHandler(function(name) {
+            repFirstName = name || repParam;
+            document.getElementById('rep-name').value = repFirstName;
+            updateMessage();
+          })
+          .getRepFirstName(repParam);
+      }
+      
+      // Load lead(s)
+      if (leadIdParam) {
+        google.script.run
+          .withSuccessHandler(function(lead) {
+            if (lead) {
+              currentLead = lead;
+              allLeads = [lead];
+              renderLeadCard();
+              showMainContent();
+            } else {
+              showError('Lead not found: ' + leadIdParam);
+            }
+          })
+          .withFailureHandler(function(e) {
+            showError('Error loading lead: ' + e);
+          })
+          .getLeadData(leadIdParam);
+      } else if (repParam) {
+        google.script.run
+          .withSuccessHandler(function(leads) {
+            if (leads && leads.length > 0) {
+              allLeads = leads;
+              currentLead = leads[0];
+              renderLeadCard();
+              renderLeadSelector();
+              showMainContent();
+            } else {
+              showError('No leads found for rep: ' + repParam);
+            }
+          })
+          .withFailureHandler(function(e) {
+            showError('Error loading leads: ' + e);
+          })
+          .getLeadsForRep(repParam, 20);
+      } else {
+        showError('No lead ID or rep specified. Add ?leadId=XXXXX or ?rep=USERNAME to the URL.');
+      }
+    }
+    
+    function showMainContent() {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('error-msg').style.display = 'none';
+      document.getElementById('main-content').style.display = 'block';
+      updateMessage();
+    }
+    
+    function showError(msg) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('error-msg').style.display = 'block';
+      document.getElementById('error-msg').textContent = '❌ ' + msg;
+    }
+    
+    function renderLeadCard() {
+      if (!currentLead) return;
+      
+      document.getElementById('lead-name').textContent = (currentLead.firstName || '') + ' ' + (currentLead.lastName || '');
+      document.getElementById('lead-job').textContent = 'Job #' + (currentLead.id || '');
+      document.getElementById('lead-source').textContent = currentLead.source || 'Unknown';
+      document.getElementById('lead-route').textContent = (currentLead.fromState || '--') + ' → ' + (currentLead.toState || '--');
+      document.getElementById('lead-date').textContent = formatDate(currentLead.moveDate);
+      document.getElementById('lead-value').textContent = '$' + Number(currentLead.estTotal || 0).toLocaleString();
+      document.getElementById('lead-size').textContent = (currentLead.cubicFeet || 0) + ' cu ft';
+      document.getElementById('preview-to').textContent = (currentLead.firstName || '') + ' ' + (currentLead.lastName || '');
+      
+      updateSMSLink();
+    }
+    
+    function renderTemplates() {
+      var grid = document.getElementById('template-grid');
+      grid.innerHTML = '';
+      
+      var keys = Object.keys(templates);
+      for (var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+        var t = templates[key];
+        var btn = document.createElement('button');
+        btn.className = 'template-btn' + (key === selectedTemplate ? ' active' : '');
+        btn.innerHTML = '<span class="template-icon">' + (t.icon || '') + '</span>' + (t.name || '').replace(t.icon + ' ', '');
+        btn.setAttribute('data-key', key);
+        btn.addEventListener('click', function() {
+          selectTemplate(this.getAttribute('data-key'));
+        });
+        grid.appendChild(btn);
+      }
+    }
+    
+    function selectTemplate(key) {
+      selectedTemplate = key;
+      
+      var buttons = document.querySelectorAll('.template-btn');
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('active');
+        if (buttons[i].getAttribute('data-key') === key) {
+          buttons[i].classList.add('active');
+        }
+      }
+      
+      updateMessage();
+    }
+    
+    function updateMessage() {
+      if (!currentLead || !templates[selectedTemplate]) return;
+      
+      var template = templates[selectedTemplate].template || '';
+      var message = processTemplate(template);
+      
+      document.getElementById('message').value = message;
+      updateCharCount();
+      updatePreview();
+      updateSMSLink();
+    }
+    
+    function processTemplate(template) {
+      if (!currentLead) return template;
+      
+      var moveDateFormatted = '';
+      if (currentLead.moveDate) {
+        try {
+          var moveDate = new Date(currentLead.moveDate);
+          moveDateFormatted = moveDate.toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            month: 'short', 
+            day: 'numeric' 
+          });
+        } catch(e) {
+          moveDateFormatted = currentLead.moveDate;
+        }
+      }
+      
+      var repName = document.getElementById('rep-name').value || repFirstName || 'Rep';
+      
+      return template
+        .replace(/{firstName}/g, currentLead.firstName || '')
+        .replace(/{lastName}/g, currentLead.lastName || '')
+        .replace(/{fromState}/g, currentLead.fromState || '')
+        .replace(/{toState}/g, currentLead.toState || '')
+        .replace(/{moveDate}/g, currentLead.moveDate || '')
+        .replace(/{moveDateFormatted}/g, moveDateFormatted)
+        .replace(/{cubicFeet}/g, Number(currentLead.cubicFeet || 0).toLocaleString())
+        .replace(/{estTotal}/g, Number(currentLead.estTotal || 0).toLocaleString())
+        .replace(/{repFirstName}/g, repName);
+    }
+    
+    function updateCharCount() {
+      var message = document.getElementById('message').value || '';
+      var count = message.length;
+      var segments = Math.ceil(count / 160) || 1;
+      
+      document.getElementById('char-count').textContent = count;
+      
+      var badge = document.getElementById('segment-badge');
+      badge.textContent = segments + ' segment' + (segments > 1 ? 's' : '');
+      badge.className = 'segment-badge ' + (segments === 1 ? 'green' : segments === 2 ? 'yellow' : 'red');
+    }
+    
+    function updatePreview() {
+      var message = document.getElementById('message').value || 'Your message preview...';
+      document.getElementById('preview-bubble').textContent = message;
+    }
+    
+    function updateSMSLink() {
+      if (!currentLead) return;
+      var phone = (currentLead.phone || '').replace(/\D/g, '');
+      var message = document.getElementById('message').value || '';
+      document.getElementById('sms-link').href = 'sms:' + phone + '?body=' + encodeURIComponent(message);
+    }
+    
+    function copyMessage() {
+      var message = document.getElementById('message').value || '';
+      var btn = document.getElementById('copy-btn');
+      
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(message).then(function() {
+          showCopied();
+        }).catch(function() {
+          fallbackCopy(message);
+        });
+      } else {
+        fallbackCopy(message);
+      }
+      
+      // Log generation
+      if (currentLead) {
+        try {
+          google.script.run.logSMSGeneration(currentLead.id, selectedTemplate, repParam);
+        } catch(e) {}
+      }
+    }
+    
+    function fallbackCopy(text) {
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      showCopied();
+    }
+    
+    function showCopied() {
+      var btn = document.getElementById('copy-btn');
+      btn.innerHTML = '✅ Copied!';
+      btn.classList.add('btn-copied');
+      setTimeout(function() {
+        btn.innerHTML = '📋 Copy Message';
+        btn.classList.remove('btn-copied');
+      }, 2000);
+    }
+    
+    function renderLeadSelector() {
+      if (allLeads.length <= 1) return;
+      
+      var container = document.getElementById('lead-selector');
+      container.innerHTML = '';
+      
+      for (var i = 0; i < allLeads.length; i++) {
+        var lead = allLeads[i];
+        var div = document.createElement('div');
+        div.className = 'lead-option' + (lead.id === currentLead.id ? ' selected' : '');
+        div.innerHTML = '<div style="display: flex; justify-content: space-between;">' +
+          '<span style="font-weight: 600;">' + (lead.firstName || '') + ' ' + (lead.lastName || '') + '</span>' +
+          '<span style="color: #64748b;">#' + (lead.id || '') + '</span>' +
+          '</div>' +
+          '<div style="font-size: 12px; color: #94a3b8; margin-top: 4px;">' +
+          (lead.fromState || '') + ' → ' + (lead.toState || '') + ' • ' + formatDate(lead.moveDate) +
+          '</div>';
+        div.setAttribute('data-index', i);
+        div.addEventListener('click', function() {
+          var idx = parseInt(this.getAttribute('data-index'));
+          selectLead(allLeads[idx]);
+        });
+        container.appendChild(div);
+      }
+    }
+    
+    function selectLead(lead) {
+      currentLead = lead;
+      renderLeadCard();
+      renderLeadSelector();
+      updateMessage();
+      toggleLeadSelector();
+    }
+    
+    function toggleLeadSelector() {
+      var selector = document.getElementById('lead-selector');
+      var toggle = document.getElementById('toggle-leads');
+      
+      if (selector.style.display === 'none') {
+        selector.style.display = 'block';
+        toggle.textContent = 'Hide Leads ▲';
+      } else {
+        selector.style.display = 'none';
+        toggle.textContent = 'Change Lead ▼';
+      }
+    }
+    
+    function formatDate(dateStr) {
+      if (!dateStr) return '--';
+      try {
+        var d = new Date(dateStr);
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      } catch(e) {
+        return dateStr;
+      }
+    }
+    
+    // Set preview time
+    try {
+      document.getElementById('preview-time').textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    } catch(e) {}
+  </script>
+</body>
+</html>
